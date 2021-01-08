@@ -26,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        */
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         //wczytaj listę z klasy Note oraz dodaj obiekt jej klasy
         ArrayList<Note> notes = new ArrayList<Note>();
-        notes.add(new Note());
-        notes.add(new Note());
-        notes.add(new Note());
+        for (int i = 0; i < 20; i++) {
+            notes.add(new Note());
+        }
 
         //połącz Adapter z RecycleView
         recyclerView.setAdapter(new NoteAdapter(notes, recyclerView));
