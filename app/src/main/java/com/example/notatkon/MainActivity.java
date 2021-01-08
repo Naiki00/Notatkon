@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.notatkon.note.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,11 +44,16 @@ public class MainActivity extends AppCompatActivity {
         //https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView#next-steps
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.notes);
-        //ustaw LayoutManagera
+        //ustaw LayoutManagera wertykalnie
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //ustaw LayoutManagera horyzontalnie
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         //wczytaj listę z klasy Note oraz dodaj obiekt jej klasy
         ArrayList<Note> notes = new ArrayList<Note>();
+        notes.add(new Note());
+        notes.add(new Note());
         notes.add(new Note());
 
         //połącz Adapter z RecycleView
