@@ -1,17 +1,22 @@
 package com.example.notatkon;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
+import com.example.notatkon.note.Note;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import com.example.notatkon.note.NoteAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        */
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,8 +37,26 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        //metody
+        //https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView#next-steps
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.notes);
+        //ustaw LayoutManagera
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //wczytaj listę z klasy Note oraz dodaj obiekt jej klasy
+        ArrayList<Note> notes = new ArrayList<Note>();
+        notes.add(new Note());
+
+        //połącz Adapter z RecycleView
+        recyclerView.setAdapter(new NoteAdapter(notes, recyclerView));
+
     }
 
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -53,4 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+     */
 }
