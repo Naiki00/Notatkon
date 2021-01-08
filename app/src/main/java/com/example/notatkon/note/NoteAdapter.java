@@ -25,6 +25,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     //obiekt listy notatek
     private RecyclerView noteRecyclerView;
 
+    //konstruktor
+    public NoteAdapter(ArrayList<Note> Notes, RecyclerView notesRecyclerView) {
+        arrNotes = Notes;
+        noteRecyclerView = notesRecyclerView;
+    }
+
     //implementacja ViewHoldera
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView noteTitle;
