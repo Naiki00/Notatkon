@@ -1,24 +1,24 @@
 package com.example.notatkon.note;
 
 public class Note {
-    private String Title;
-    private String Content;
+    private String noteTitle;
+    private String noteContent;
 
     // automatyczne dane do tablicy
-    private static String[] Titles = { "Title1" };
+    private static String[] NoteTitles = { "Title1" };
 
-    private static String[] Contents = { "Content1" };
+    private static String[] NoteContents = { "Content1" };
 
     //konstruktor
     public Note() {
 
     }
 
-    public String getTitle() {
-        return Title;
+    public String getNoteTitle() {
+        return noteTitle;
     }
 
-    public String getContent() {
-        return Content;
+    public String getNoteContent() {
+        return noteContent;
     }
 }
