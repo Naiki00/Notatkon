@@ -11,7 +11,8 @@ public class Note {
 
     //konstruktor
     public Note() {
-
+        noteTitle = NoteTitles[0];
+        noteContent = NoteContents[0];
     }
 
     public String getNoteTitle() {
