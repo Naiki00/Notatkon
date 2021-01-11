@@ -24,17 +24,14 @@
             app:popupTheme="@style/Theme.Notatkon.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
     <!--
     <include layout="@layout/content_main" />
     -->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
