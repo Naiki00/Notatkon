@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- moje kolory -->
+    <color name="colorPrimary">#F7F7F7</color>
+    <color name="colorAccent">#F6D499</color>
+    <color name="colorTextHint">#7B7B7B</color>
+    <color name="colorQuickActionsBackground">#F7F7F7</color>
+    <color name="colorIcon">#070707</color>
+    <color name="colorSubtitle">#CECECE</color>
+    <color name="colorNoteColor">#FFFFFF</color>
+    <color name="colorSubtitleText">#FAFAFA</color>
+    <color name="colorSearch">#EDEDED</color>
+
 </resources>
