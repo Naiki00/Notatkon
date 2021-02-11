@@ -1,5 +1,6 @@
 package com.example.notatkon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,24 +22,35 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_NEW_NOTE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this,
+                CreateNote.class);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        /*
+        https://developer.android.com/guide/components/activities/activity-lifecycle
+        https://developer.android.com/training/basics/intents/result
+        */
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivityForResult(intent, REQUEST_CODE_NEW_NOTE);
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
         });
 
-
+        /* -- Pierwsza wersja apki --
         //metody
         //https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView#next-steps
 
@@ -58,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         //połącz Adapter z RecycleView
         recyclerView.setAdapter(new NoteAdapter(notes, recyclerView));
 
-    }
+
 
 
     /*
@@ -85,4 +97,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
      */
+    }
 }
