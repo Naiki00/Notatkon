@@ -60,19 +60,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:hint="@string/note_subtitle"
                 android:inputType="textMultiLine"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
                 android:textColor="@color/colorSubtitle"
                 android:textColorHint="@color/colorHint"
                 android:textSize="@dimen/_13ssp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/viewSubtitle"
-                app:layout_constraintTop_toBottomOf="@+id/noteTitle"/>
+                app:layout_constraintTop_toBottomOf="@+id/noteTitle" />
 
             <View
                 android:id="@+id/viewSubtitle"
@@ -92,14 +92,14 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:gravity="top"
                 android:hint="@string/note_content"
                 android:inputType="textMultiLine"
                 android:textColor="@color/white"
                 android:textColorHint="@color/colorHint"
                 android:textSize="@dimen/_13ssp"
                 android:minHeight="@dimen/_100sdp"
-                app:layout_constraintTop_toTopOf="@id/noteSubtitle" />
+                app:layout_constraintTop_toBottomOf="@id/noteSubtitle"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
