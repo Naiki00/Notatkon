@@ -55,6 +55,18 @@
                 android:hint="@string/note_title"
                 app:layout_constraintTop_toBottomOf="@id/back" />
 
+            <TextView
+                android:id="@+id/textDateTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorIcon"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/noteTitle"
+                app:layout_constraintStart_toStartOf="@+id/noteTitle"
+                app:layout_constraintTop_toBottomOf="@+id/noteTitle" />
+
             <EditText
                 android:id="@+id/noteSubtitle"
                 android:layout_width="0dp"
