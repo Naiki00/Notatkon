@@ -47,12 +47,20 @@ public class NoteEntity {
         this.title = title;
     }
 
-    public String getSubheading() {
+    public String getSubtitle() {
         return subtitle;
     }
 
-    public void setSubheading(String subheading) {
-        this.subtitle = subheading;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getContent() {
