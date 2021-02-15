@@ -5,8 +5,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.notatkon.database.NoteEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +40,19 @@ public class CreateNote extends AppCompatActivity {
 
         textDataTime.setText(
                 new SimpleDateFormat("EEEE, dd MM yyyy HH:mm", Locale.getDefault())
-                .format(new Date())
+                        .format(new Date())
         );
     }
+
+    private void saveNote() {
+
+        final NoteEntity note = new NoteEntity();
+        note.setTitle(noteTitle.getText().toString());
+        note.setSubtitle(noteSubtitle.getText().toString());
+        note.setContent(inputNote.getText().toString());
+        note.setDateTime(textDataTime.getText().toString());
+    }
+
+
+
 }
