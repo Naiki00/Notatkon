@@ -19,5 +19,5 @@ public interface NoteDao {
     void insert(NoteEntity noteEntity);
 
     @Delete()
-    void deleteAll();
+    void delete(NoteEntity noteEntity);
 }
