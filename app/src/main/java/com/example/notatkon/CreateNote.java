@@ -51,6 +51,15 @@ public class CreateNote extends AppCompatActivity {
                 new SimpleDateFormat("EEEE, dd MM yyyy HH:mm", Locale.getDefault())
                         .format(new Date())
         );
+
+        // nasłuchiwanie czy przycisk zapisz został klikniety
+        ImageView imgSave = findViewById(R.id.save);
+        imgSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveNote();
+            }
+        });
     }
 
     private void saveNote() {
