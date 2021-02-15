@@ -22,8 +22,11 @@ public class NoteEntity {
     @ColumnInfo(name = "title")
     private String title;
 
-    @ColumnInfo(name = "subheading")
-    private String subheading;
+    @ColumnInfo(name = "subtitle")
+    private String subtitle;
+
+    @ColumnInfo(name = "date_time")
+    private String dateTime;
 
     @ColumnInfo(name = "content")
     private String content;
@@ -45,11 +48,11 @@ public class NoteEntity {
     }
 
     public String getSubheading() {
-        return subheading;
+        return subtitle;
     }
 
     public void setSubheading(String subheading) {
-        this.subheading = subheading;
+        this.subtitle = subheading;
     }
 
     public String getContent() {
