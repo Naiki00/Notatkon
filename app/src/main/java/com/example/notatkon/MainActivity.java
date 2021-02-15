@@ -2,23 +2,12 @@ package com.example.notatkon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.notatkon.note.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import com.example.notatkon.note.NoteAdapter;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this,
-                CreateNote.class);
 
+        ImageView imageAddNote = findViewById(R.id.AddNote);
+        imageAddNote.setOnClickListener((v) -> {
+            startActivityForResult(
+                    new Intent(getApplicationContext(), CreateNote.class),
+                    REQUEST_CODE_NEW_NOTE
+            );
+        });
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -39,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         https://developer.android.com/training/basics/intents/result
         */
 
+
+        /* wersja z fab
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
