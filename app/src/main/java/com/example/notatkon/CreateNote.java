@@ -48,7 +48,7 @@ public class CreateNote extends AppCompatActivity {
         textDataTime = findViewById(R.id.textDateTime);
 
         textDataTime.setText(
-                new SimpleDateFormat("EEEE, dd MM yyyy HH:mm", Locale.getDefault())
+                new SimpleDateFormat("EEEE, dd.MM.yyyy HH:mm", Locale.getDefault())
                         .format(new Date())
         );
 
