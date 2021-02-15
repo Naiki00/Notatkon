@@ -1,13 +1,17 @@
 package com.example.notatkon;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.notatkon.database.NoteEntity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_CODE_NEW_NOTE
             );
         });
+    }
+
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -93,5 +99,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
      */
+
+    //pobranie notatek z bazy i wyswietlanie na ekranie
+    private void getNotes() {
+
+        class GetNotesTask extends AsyncTask<Void, Void, List<NoteEntity>> {
+
+            @Override
+            protected List<NoteEntity> doInBackground(Void... voids) {
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<NoteEntity> noteEntities) {
+                super.onPostExecute(noteEntities);
+            }
+        }
     }
+
 }
