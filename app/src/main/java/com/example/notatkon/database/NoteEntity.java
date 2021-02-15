@@ -1,5 +1,6 @@
 package com.example.notatkon.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -69,5 +70,11 @@ public class NoteEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return title + " : " + dateTime;
     }
 }
