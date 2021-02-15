@@ -1,4 +1,4 @@
-package com.example.notatkon.note;
+package com.example.notatkon.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,28 +7,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.notatkon.R;
-import com.example.notatkon.database.NoteEntity;
-
-import org.w3c.dom.Text;
+import com.example.notatkon.entities.NoteEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //https://developer.android.com/guide/topics/ui/layout/recyclerview
 
 /* Aby klasa była adapterem musi dziedziczyć po RecyclerView.Adapter oraz wskazywać na ViewHolder */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
-    private ArrayList<NoteEntity> arrNotes = new ArrayList<>();
-
-    //obiekt listy notatek
-    //private RecyclerView noteRecyclerView;
+    private List<NoteEntity> listNotes;
 
     //konstruktor
     public NoteAdapter(ArrayList<NoteEntity> arrNotes) {
-        this.arrNotes = arrNotes;
+        this.listNotes = arrNotes;
     }
 
     //implementacja ViewHoldera
@@ -70,12 +65,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     ///// Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setNote(arrNotes.get(position));
+        holder.setNote(listNotes.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return arrNotes.size();
+        return listNotes.size();
     }
 
     @Override
