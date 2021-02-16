@@ -7,17 +7,25 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.notatkon.R;
+import com.example.notatkon.adapter.NoteAdapter;
 import com.example.notatkon.entities.NoteEntity;
 import com.example.notatkon.database.NoteRoomDatabase;
 import com.example.notatkon.note.CreateNote;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_NEW_NOTE = 1;
+
+    private List<NoteEntity> noteEntityList;
+    private RecyclerView noteRecycler;
+    private NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
-        getAllNotes();
-    }
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -56,25 +62,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /* -- Pierwsza wersja apki --
+         */
+
+        //-- Pierwsza wersja apki --
         //metody
         //https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView#next-steps
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.notes);
+        noteRecycler = (RecyclerView) findViewById(R.id.notes);
         //ustaw LayoutManagera wertykalnie
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //ustaw LayoutManagera horyzontalnie
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        noteRecycler.setLayoutManager(
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        );
 
         //wczytaj listę z klasy Note oraz dodaj obiekt jej klasy
-        ArrayList<Note> notes = new ArrayList<Note>();
-        for (int i = 0; i < 20; i++) {
-            notes.add(new Note());
-        }
+
+        noteEntityList = new ArrayList<>();
 
         //połącz Adapter z RecycleView
-        recyclerView.setAdapter(new NoteAdapter(notes, recyclerView));
+        noteAdapter = new NoteAdapter(noteEntityList);
+        noteRecycler.setAdapter(noteAdapter);
+
+        getAllNotes();
+    }
+
+
+
 
 
 
@@ -120,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<NoteEntity> noteEntities) {
                 super.onPostExecute(noteEntities);
-                Log.d("NOTES", noteEntities.toString());
+                //Log.d("NOTES", noteEntities.toString());
             }
         }
         new GetNotesTask().execute();
