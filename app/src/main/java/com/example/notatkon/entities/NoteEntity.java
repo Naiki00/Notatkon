@@ -1,4 +1,4 @@
-package com.example.notatkon.database;
+package com.example.notatkon.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
