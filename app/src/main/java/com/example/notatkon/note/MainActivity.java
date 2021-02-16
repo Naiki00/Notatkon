@@ -1,5 +1,6 @@
 package com.example.notatkon.note;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ import com.example.notatkon.note.CreateNote;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/*
+https://developer.android.com/guide/components/activities/activity-lifecycle
+https://developer.android.com/training/basics/intents/result
+*/
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,47 +47,18 @@ public class MainActivity extends AppCompatActivity {
             );
         });
 
-
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        /*
-        https://developer.android.com/guide/components/activities/activity-lifecycle
-        https://developer.android.com/training/basics/intents/result
-        */
-
-
-        /* wersja z fab
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(intent, REQUEST_CODE_NEW_NOTE);
-
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-            }
-        });
-
-         */
-
         //-- Pierwsza wersja apki --
         //metody
         //https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView#next-steps
 
-        noteRecycler = (RecyclerView) findViewById(R.id.notes);
+        noteRecycler = findViewById(R.id.notes);
         //ustaw LayoutManagera wertykalnie
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         //ustaw LayoutManagera horyzontalnie
         noteRecycler.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         );
-
-        //wczytaj listę z klasy Note oraz dodaj obiekt jej klasy
-
         noteEntityList = new ArrayList<>();
-
         //połącz Adapter z RecycleView
         noteAdapter = new NoteAdapter(noteEntityList);
         noteRecycler.setAdapter(noteAdapter);
@@ -89,40 +66,10 @@ public class MainActivity extends AppCompatActivity {
         getAllNotes();
     }
 
-
-
-
-
-
-
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-     */
-
     //pobranie notatek z bazy i wyswietlanie na ekranie
     private void getAllNotes() {
 
+        @SuppressLint("StaticFieldLeak")
         class GetNotesTask extends AsyncTask<Void, Void, List<NoteEntity>> {
 
             @Override
@@ -136,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(List<NoteEntity> noteEntities) {
                 super.onPostExecute(noteEntities);
-                Log.d("NOTES", noteEntities.toString());
+                //Log.d("NOTES", noteEntities.toString());
                 if (noteEntityList.size() == 0) {
                     noteEntityList.addAll(noteEntities);
                     noteAdapter.notifyDataSetChanged();
@@ -153,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_NEW_NOTE && requestCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_NEW_NOTE && resultCode == RESULT_OK) {
             getAllNotes();
         }
     }

@@ -14,12 +14,15 @@ import java.util.List;
 @Dao
 public interface NoteDao {
 
-    @Query("SELECT * FROM note_table")
+    @Query("SELECT * FROM note_table ORDER BY id DESC")
     List<NoteEntity> getNotes();
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(NoteEntity noteEntity);
 
     @Delete()
     void delete(NoteEntity noteEntity);
+
+    @Query("DELETE FROM note_Table")
+    void deleteAll();
 }

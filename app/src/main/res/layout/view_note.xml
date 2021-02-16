@@ -4,51 +4,45 @@
     android:id="@+id/viewNote"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:backgroundTint="@color/colorAccent"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="2dp"
+    android:background="@drawable/background_note"
+    android:layout_marginStart="@dimen/_14sdp"
+    android:layout_marginTop="@dimen/_14sdp"
     app:contentPadding="0dp"
-    android:orientation="vertical"
-    android:padding="2dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/note_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:text="note_title"
         android:textAlignment="viewStart"
         android:textSize="@dimen/_14ssp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/note_subtitle"
-        android:text="note_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_4sdp"
+        android:textSize="@dimen/_12ssp"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
         android:textStyle="normal" />
 
     <TextView
         android:id="@+id/textDateTime"
-        android:text="note_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
-        android:maxLines="4"
-        android:ellipsize="end"
+        android:textSize="@dimen/_10ssp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/black" />
 
 </LinearLayout>

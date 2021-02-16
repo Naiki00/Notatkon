@@ -38,6 +38,7 @@ public class CreateNote extends AppCompatActivity {
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 onBackPressed();
             }
         });
@@ -88,7 +89,6 @@ public class CreateNote extends AppCompatActivity {
                 finish();
             }
         }
-
         new SaveNoteTask().execute();
     }
 
