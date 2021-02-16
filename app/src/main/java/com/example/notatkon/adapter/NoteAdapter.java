@@ -22,8 +22,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     private List<NoteEntity> listNotes;
 
     //konstruktor
-    public NoteAdapter(ArrayList<NoteEntity> arrNotes) {
-        this.listNotes = arrNotes;
+    public NoteAdapter(List<NoteEntity> listNotes) {
+        this.listNotes = listNotes;
     }
 
     //implementacja ViewHoldera
