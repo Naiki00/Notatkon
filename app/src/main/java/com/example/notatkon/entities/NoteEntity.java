@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /*
@@ -14,7 +15,7 @@ https://developer.android.com/codelabs/android-room-with-a-view#4
 */
 
 @Entity(tableName = "note_table")
-public class NoteEntity {
+public class NoteEntity implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "id")

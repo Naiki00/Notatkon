@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_CODE_NEW_NOTE
             );
         });
+
+        getAllNotes();
     }
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
@@ -103,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
      */
 
     //pobranie notatek z bazy i wyswietlanie na ekranie
-    private void getNotes() {
+    private void getAllNotes() {
 
         class GetNotesTask extends AsyncTask<Void, Void, List<NoteEntity>> {
 
             @Override
             protected List<NoteEntity> doInBackground(Void... voids) {
                 //return null;
-                return (List<NoteEntity>) NoteRoomDatabase
+                return NoteRoomDatabase
                         .getNoteRoomDatabase(getApplicationContext())
                         .noteDao().getNotes();
             }

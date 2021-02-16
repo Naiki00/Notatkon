@@ -15,7 +15,7 @@ import java.util.List;
 public interface NoteDao {
 
     @Query("SELECT * FROM note_table")
-    LiveData<List<NoteEntity>> getNotes();
+    List<NoteEntity> getNotes();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(NoteEntity noteEntity);
