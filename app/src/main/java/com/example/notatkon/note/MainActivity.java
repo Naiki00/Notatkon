@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             protected void onPostExecute(List<NoteEntity> noteEntities) {
                 super.onPostExecute(noteEntities);
                 //Log.d("NOTES", noteEntities.toString());
+                // zamiast requestów
+                // bez możliwości edycji
+                /*
                 if (noteEntityList.size() == 0) {
                     noteEntityList.addAll(noteEntities);
                     noteAdapter.notifyDataSetChanged();
@@ -110,6 +113,20 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                     noteAdapter.notifyItemInserted(0);
                 }
                 noteRecycler.smoothScrollToPosition(0);
+                */
+
+                if (requestCode == REQUEST_SHOW_NOTE) {
+                    noteEntityList.addAll(noteEntities);
+                    noteAdapter.notifyDataSetChanged();
+                } else if (requestCode == REQUEST_CODE_NEW_NOTE) {
+                    noteEntityList.add(0, noteEntities.get(0));
+                    noteAdapter.notifyItemInserted(0);
+                    noteRecycler.smoothScrollToPosition(0);
+                } else if (requestCode == REQUEST_EDIT_NOTE) {
+                    noteEntityList.remove(notePosition);
+                    noteEntityList.add(notePosition, noteEntities.get(notePosition));
+                    noteAdapter.notifyItemChanged(notePosition);
+                }
             }
         }
         new GetNotesTask().execute();
