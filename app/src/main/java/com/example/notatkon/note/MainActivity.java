@@ -16,6 +16,7 @@ import com.example.notatkon.R;
 import com.example.notatkon.adapter.NoteAdapter;
 import com.example.notatkon.entities.NoteEntity;
 import com.example.notatkon.database.NoteRoomDatabase;
+import com.example.notatkon.listener.NoteListener;
 import com.example.notatkon.note.CreateNote;
 
 import java.util.ArrayList;
@@ -26,9 +27,12 @@ https://developer.android.com/guide/components/activities/activity-lifecycle
 https://developer.android.com/training/basics/intents/result
 */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoteListener {
 
-    private static final int REQUEST_CODE_NEW_NOTE = 1;
+    public static final int REQUEST_CODE_NEW_NOTE = 1;
+    public static final int REQUEST_EDIT_NOTE = 2;
+
+    private int notePosition = -1;
 
     private List<NoteEntity> noteEntityList;
     private RecyclerView noteRecycler;
@@ -60,10 +64,20 @@ public class MainActivity extends AppCompatActivity {
         );
         noteEntityList = new ArrayList<>();
         //połącz Adapter z RecycleView
-        noteAdapter = new NoteAdapter(noteEntityList);
+        noteAdapter = new NoteAdapter(noteEntityList, this);
         noteRecycler.setAdapter(noteAdapter);
 
         getAllNotes();
+    }
+
+
+    @Override
+    public void onNoteClicked(NoteEntity noteEntity, int position) {
+        notePosition = position;
+        Intent intent = new Intent(getApplicationContext(), CreateNote.class);
+        intent.putExtra("update", true);
+        intent.putExtra("noteEntity", noteEntity);
+        startActivityForResult(intent, REQUEST_EDIT_NOTE);
     }
 
     //pobranie notatek z bazy i wyswietlanie na ekranie

@@ -3,6 +3,7 @@ package com.example.notatkon.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notatkon.R;
 import com.example.notatkon.entities.NoteEntity;
+import com.example.notatkon.listener.NoteListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,22 +22,28 @@ import java.util.List;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private List<NoteEntity> listNotes;
+    private NoteListener noteListener;
 
     //konstruktor
-    public NoteAdapter(List<NoteEntity> listNotes) {
+    public NoteAdapter(List<NoteEntity> listNotes, NoteListener noteListener) {
+
         this.listNotes = listNotes;
+        this.noteListener = noteListener;
     }
 
     //implementacja ViewHoldera
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView noteTitle, noteSubtitle, textDateTime;
+        TextView noteTitle, noteSubtitle, textDateTime;
+        LinearLayout viewNote;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             noteTitle = (TextView) itemView.findViewById(R.id.note_title);
             noteSubtitle = (TextView) itemView.findViewById(R.id.note_subtitle);
             textDateTime = (TextView) itemView.findViewById(R.id.textDateTime);
+
+            viewNote = (LinearLayout) itemView.findViewById(R.id.viewNote);
         }
 
         // wpisz notatke
@@ -53,19 +61,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.view_note,
-                parent,
-                false
+        return new ViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.view_note,
+                        parent,
+                        false
+                )
         );
         // utwórz nowy ViewHolder i usuń
-        return new ViewHolder(view);
+        //ViewHolder(view);
     }
 
     ///// Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setNote(listNotes.get(position));
+
+        holder.viewNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noteListener.onNoteClicked(listNotes.get(position), position);
+            }
+        });
     }
 
     @Override
