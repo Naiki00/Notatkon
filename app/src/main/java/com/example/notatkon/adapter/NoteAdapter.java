@@ -39,11 +39,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteTitle = (TextView) itemView.findViewById(R.id.note_title);
-            noteSubtitle = (TextView) itemView.findViewById(R.id.note_subtitle);
-            textDateTime = (TextView) itemView.findViewById(R.id.textDateTime);
+            noteTitle = itemView.findViewById(R.id.note_title);
+            noteSubtitle = itemView.findViewById(R.id.note_subtitle);
+            textDateTime = itemView.findViewById(R.id.textDateTime);
 
-            viewNote = (LinearLayout) itemView.findViewById(R.id.viewNote);
+            viewNote = itemView.findViewById(R.id.viewNote);
         }
 
         // wpisz notatke

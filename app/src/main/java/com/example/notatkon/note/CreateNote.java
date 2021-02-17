@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,8 @@ public class CreateNote extends AppCompatActivity {
 
     private EditText noteTitle, noteSubtitle, inputNote;
     private TextView textDataTime;
+
+    private NoteEntity selectedNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,23 +64,52 @@ public class CreateNote extends AppCompatActivity {
                 saveNote();
             }
         });
+
+
+        if (getIntent().getBooleanExtra("update", false)) {
+            selectedNote = (NoteEntity) getIntent().getSerializableExtra("noteEntity");
+            fillSelectedNote();
+        }
+    }
+
+    //przypisanie obecnej zawartosci notatki nowemu widokowi po kliknieciu
+    private void fillSelectedNote() {
+        noteTitle.setText(selectedNote.getTitle());
+        noteSubtitle.setText(selectedNote.getSubtitle());
+        inputNote.setText(selectedNote.getContent());
+        textDataTime.setText(selectedNote.getDateTime());
     }
 
     private void saveNote() {
 
+        if (noteTitle.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Nie może być puste!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (noteSubtitle.getText().toString().trim().isEmpty()
+                && inputNote.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Nie może być puste!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //pobierz wpisywany tekst z textview
-        final NoteEntity note = new NoteEntity();
-        note.setTitle(noteTitle.getText().toString());
-        note.setSubtitle(noteSubtitle.getText().toString());
-        note.setContent(inputNote.getText().toString());
-        note.setDateTime(textDataTime.getText().toString());
+        final NoteEntity noteEntity = new NoteEntity();
+        noteEntity.setTitle(noteTitle.getText().toString());
+        noteEntity.setSubtitle(noteSubtitle.getText().toString());
+        noteEntity.setContent(inputNote.getText().toString());
+        noteEntity.setDateTime(textDataTime.getText().toString());
+
+
+        if (selectedNote != null) {
+            noteEntity.setId(selectedNote.getId());
+        }
+
 
         @SuppressLint("StaticFieldLeak")
         class SaveNoteTask extends AsyncTask<Void, Void, Void> {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                NoteRoomDatabase.getNoteRoomDatabase(getApplicationContext()).noteDao().insert(note);
+                NoteRoomDatabase.getNoteRoomDatabase(getApplicationContext()).noteDao().insert(noteEntity);
                 return null;
             }
 

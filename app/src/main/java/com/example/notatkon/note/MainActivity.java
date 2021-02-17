@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     public static final int REQUEST_CODE_NEW_NOTE = 1;
     public static final int REQUEST_EDIT_NOTE = 2;
+    //public static final int REQUEST_SHOW_NOTE = 3;
 
     private int notePosition = -1;
 
@@ -72,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
 
     @Override
-    public void onNoteClicked(NoteEntity noteEntity, int position) {
+    public void onNoteClicked(NoteEntity note, int position) {
         notePosition = position;
         Intent intent = new Intent(getApplicationContext(), CreateNote.class);
         intent.putExtra("update", true);
-        intent.putExtra("noteEntity", noteEntity);
+        intent.putExtra("noteEntity", note);
         startActivityForResult(intent, REQUEST_EDIT_NOTE);
     }
 
