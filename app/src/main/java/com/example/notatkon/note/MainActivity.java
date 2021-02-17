@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
     public static final int REQUEST_CODE_NEW_NOTE = 1;
     public static final int REQUEST_EDIT_NOTE = 2;
-    //public static final int REQUEST_SHOW_NOTE = 3;
+    public static final int REQUEST_SHOW_NOTE = 3;
 
     private int notePosition = -1;
 
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteAdapter = new NoteAdapter(noteEntityList, this);
         noteRecycler.setAdapter(noteAdapter);
 
-        getAllNotes();
+        // wyświetl na początku wszystkie notatki z bazy
+        getAllNotes(REQUEST_SHOW_NOTE);
     }
 
 
@@ -81,8 +82,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         startActivityForResult(intent, REQUEST_EDIT_NOTE);
     }
 
-    //pobranie notatek z bazy i wyswietlanie na ekranie
-    private void getAllNotes() {
+    // pobranie notatek z bazy i wyswietlanie na ekranie
+    // przekazujemy request jako parametr by przekazać potem kod
+    // wyświetlajacy wszystkie notatki lub aktywność edycji notatki
+    private void getAllNotes(int requestCode) {
 
         @SuppressLint("StaticFieldLeak")
         class GetNotesTask extends AsyncTask<Void, Void, List<NoteEntity>> {
@@ -115,8 +118,13 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // sprawdzamy request i przechodzimy do odpowiedniego widoku
         if (requestCode == REQUEST_CODE_NEW_NOTE && resultCode == RESULT_OK) {
-            getAllNotes();
+            getAllNotes(REQUEST_CODE_NEW_NOTE);
+        } else if (requestCode == REQUEST_EDIT_NOTE && resultCode == RESULT_OK) {
+            if(data != null) {
+                getAllNotes(REQUEST_EDIT_NOTE);
+            }
         }
     }
 }
