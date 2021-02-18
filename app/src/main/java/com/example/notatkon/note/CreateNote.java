@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.notatkon.R;
 import com.example.notatkon.entities.NoteEntity;
 import com.example.notatkon.database.NoteRoomDatabase;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,6 +72,11 @@ public class CreateNote extends AppCompatActivity {
             selectedNote = (NoteEntity) getIntent().getSerializableExtra("noteEntity");
             fillSelectedNote();
         }
+
+        setBottomToolbar();
+
+
+
     }
 
     //przypisanie obecnej zawartosci notatki nowemu widokowi po kliknieciu
@@ -124,4 +131,21 @@ public class CreateNote extends AppCompatActivity {
         new SaveNoteTask().execute();
     }
 
+    private void setBottomToolbar() {
+
+        final LinearLayout bottomToolbar = findViewById(R.id.bottomToolbar);
+        final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomToolbar);
+
+        //wysuwanie dolnego paska narzędzi
+        bottomToolbar.findViewById(R.id.textBottomToolbar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                } else {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
+    }
 }

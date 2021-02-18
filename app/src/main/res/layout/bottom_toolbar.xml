@@ -7,12 +7,13 @@
     android:layout_height="wrap_content"
     android:id="@+id/bottomToolbar"
     android:background="@drawable/background_bottom_toolbar"
+    app:behavior_peekHeight="@dimen/_35sdp"
     app:layout_behavior="@string/bottom_sheet_behavior">
     
     <TextView
         android:id="@+id/textBottomToolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="@dimen/_35sdp"
         android:text="Opcje"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"

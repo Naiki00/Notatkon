@@ -121,4 +121,6 @@
 
     </ScrollView>
 
+    <include layout="@layout/bottom_toolbar" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
