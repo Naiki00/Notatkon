@@ -2,15 +2,19 @@ package com.example.notatkon.note;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.notatkon.R;
@@ -33,6 +37,8 @@ public class CreateNote extends AppCompatActivity {
     private TextView textDataTime;
 
     private NoteEntity selectedNote;
+
+    private AlertDialog deleteNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,5 +153,72 @@ public class CreateNote extends AppCompatActivity {
                 }
             }
         });
+
+
+        if (selectedNote != null) {
+            bottomToolbar.findViewById(R.id.deleteNote).setVisibility(View.VISIBLE);
+            bottomToolbar.findViewById(R.id.deleteNote).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    
+                }
+            });
+        }
     }
+
+    private void showDialog() {
+
+        if (deleteNote == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreateNote.this);
+
+            View v = LayoutInflater.from(this).inflate(
+                    R.layout.delete_note,
+                    (ViewGroup) findViewById(R.id.dialogDelete)
+            );
+            builder.setView(v);
+            deleteNote = builder.create();
+            if (deleteNote.getWindow() != null) {
+                deleteNote.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+
+            // task dla opcji usuń notatkę w oknie dialogowym
+            v.findViewById(R.id.textDelete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    class DeleteNoteTask extends AsyncTask<Void, Void, Void> {
+
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            NoteRoomDatabase.getNoteRoomDatabase(getApplicationContext()).noteDao()
+                                    .delete(selectedNote);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            Intent intent = new Intent();
+                            intent.putExtra("isDeleted", true);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    }
+                    new  DeleteNoteTask().execute();
+                }
+            });
+
+            // opcja anuluj w oknie dialogowym
+            v.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteNote.dismiss();
+                }
+            });
+        }
+        deleteNote.show();
+    }
+
+
 }
