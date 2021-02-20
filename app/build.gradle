@@ -46,4 +46,6 @@ dependencies {
     //Room - biblioteka do baza danych
     implementation "androidx.room:room-runtime:2.2.5"
     annotationProcessor "androidx.room:room-compiler:2.2.5"
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 }

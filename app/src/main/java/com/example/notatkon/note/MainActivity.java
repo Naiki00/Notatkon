@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteRecycler.setAdapter(noteAdapter);
 
         // wyświetl na początku wszystkie notatki z bazy
-        getAllNotes(REQUEST_SHOW_NOTE);
+        getAllNotes(REQUEST_SHOW_NOTE, false);
     }
 
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     // pobranie notatek z bazy i wyswietlanie na ekranie
     // przekazujemy request jako parametr by przekazać potem kod
     // wyświetlajacy wszystkie notatki lub aktywność edycji notatki
-    private void getAllNotes(int requestCode) {
+    private void getAllNotes(int requestCode, final boolean isDeleted) {
 
         @SuppressLint("StaticFieldLeak")
         class GetNotesTask extends AsyncTask<Void, Void, List<NoteEntity>> {
@@ -123,9 +123,16 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                     noteAdapter.notifyItemInserted(0);
                     noteRecycler.smoothScrollToPosition(0);
                 } else if (requestCode == REQUEST_EDIT_NOTE) {
+                    //usuń notatkę z wybranej pozycji i dodaj ostatnią
+                    //z tej samej pozycji z bazy
                     noteEntityList.remove(notePosition);
-                    noteEntityList.add(notePosition, noteEntities.get(notePosition));
-                    noteAdapter.notifyItemChanged(notePosition);
+                    if (isDeleted) {
+                        noteAdapter.notifyItemRemoved(notePosition);
+                    } else {
+                        noteEntityList.add(notePosition, noteEntities.get(notePosition));
+                        noteAdapter.notifyItemChanged(notePosition);
+
+                    }
                 }
             }
         }
@@ -137,10 +144,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         super.onActivityResult(requestCode, resultCode, data);
         // sprawdzamy request i przechodzimy do odpowiedniego widoku
         if (requestCode == REQUEST_CODE_NEW_NOTE && resultCode == RESULT_OK) {
-            getAllNotes(REQUEST_CODE_NEW_NOTE);
+            getAllNotes(REQUEST_CODE_NEW_NOTE, false);
         } else if (requestCode == REQUEST_EDIT_NOTE && resultCode == RESULT_OK) {
             if(data != null) {
-                getAllNotes(REQUEST_EDIT_NOTE);
+                getAllNotes(REQUEST_EDIT_NOTE, data.getBooleanExtra("isDeleted", false));
             }
         }
     }

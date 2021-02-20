@@ -13,9 +13,11 @@
     <color name="colorAccent">#F6D499</color>
     <color name="colorHint">#7B7B7B</color>
     <color name="colorQuickActionsBackground">#F7F7F7</color>
+    <color name="colorBottomToolbar">#0288D1</color>
+    <color name="colorDialogWindow">#717171</color>
     <color name="colorIcon">#070707</color>
     <color name="colorSubtitle">#CECECE</color>
-    <color name="colorNoteColor">#FFFFFF</color>
+    <color name="colorNoteColor">#FFF59D</color>
     <color name="colorSubtitleText">#FAFAFA</color>
 
 </resources>

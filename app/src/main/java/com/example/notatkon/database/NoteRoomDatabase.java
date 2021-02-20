@@ -16,14 +16,13 @@ import com.example.notatkon.entities.NoteEntity;
 @Database(entities = {NoteEntity.class},
         version = 1,
         exportSchema = false)
-
 public abstract class NoteRoomDatabase extends RoomDatabase {
 
     public abstract NoteDao noteDao();
 
     private static NoteRoomDatabase noteRoomDatabase;
 
-    public static synchronized NoteRoomDatabase getNoteRoomDatabase(final Context context) {
+    public static synchronized NoteRoomDatabase getNoteRoomDatabase(Context context) {
         if (noteRoomDatabase == null) {
             noteRoomDatabase = Room.databaseBuilder(
                     context,

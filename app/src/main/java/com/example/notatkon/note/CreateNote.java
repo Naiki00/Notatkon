@@ -96,11 +96,11 @@ public class CreateNote extends AppCompatActivity {
     private void saveNote() {
 
         if (noteTitle.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Nie może być puste!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tytuł nie może być pusty!", Toast.LENGTH_SHORT).show();
             return;
         } else if (noteSubtitle.getText().toString().trim().isEmpty()
                 && inputNote.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Nie może być puste!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Podtytuł/notatka nie mogą być puste!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -161,11 +161,16 @@ public class CreateNote extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    
+                    showDialog();
                 }
             });
         }
     }
+
+
+    /*
+    https://developer.android.com/guide/topics/ui/dialogs#CustomLayout
+    */
 
     private void showDialog() {
 

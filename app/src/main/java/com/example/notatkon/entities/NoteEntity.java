@@ -17,8 +17,7 @@ https://developer.android.com/codelabs/android-room-with-a-view#4
 @Entity(tableName = "note_table")
 public class NoteEntity implements Serializable {
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "title")
