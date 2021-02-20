@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
         android:text="Opcje"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
         android:gravity="center"/>
@@ -27,6 +28,7 @@
         android:layout_marginEnd="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_12sdp"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:gravity="center_vertical"
         tools:ignore="UseCompoundDrawables">
 

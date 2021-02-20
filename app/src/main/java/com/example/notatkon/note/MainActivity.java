@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -70,6 +73,26 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
 
         // wyświetl na początku wszystkie notatki z bazy
         getAllNotes(REQUEST_SHOW_NOTE, false);
+
+        EditText searchNote = findViewById(R.id.inputSearch);
+        searchNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                noteAdapter.cancelTimer();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (noteEntityList.size() != 0) {
+                    noteAdapter.searchNote(s.toString());
+                }
+            }
+        });
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.notatkon.adapter;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +17,30 @@ import com.example.notatkon.listener.NoteListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-//https://developer.android.com/guide/topics/ui/layout/recyclerview
+/*
+https://developer.android.com/guide/topics/ui/layout/recyclerview
+https://developer.android.com/reference/java/util/Timer
 
-/* Aby klasa była adapterem musi dziedziczyć po RecyclerView.Adapter oraz wskazywać na ViewHolder */
+
+
+// Aby klasa była adapterem musi dziedziczyć po RecyclerView.Adapter oraz wskazywać na ViewHolder */
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private List<NoteEntity> listNotes;
+    private List<NoteEntity> source;
     private NoteListener noteListener;
+    private Timer searchTimer;
+
 
     //konstruktor
     public NoteAdapter(List<NoteEntity> listNotes, NoteListener noteListener) {
 
         this.listNotes = listNotes;
         this.noteListener = noteListener;
+        source = listNotes;
     }
 
     //implementacja ViewHoldera
@@ -55,6 +67,40 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                 noteSubtitle.setText(note.getSubtitle());
             }
             textDateTime.setText(note.getDateTime());
+        }
+    }
+
+    public void searchNote(final String token) {
+        searchTimer = new Timer();
+        searchTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (token.trim().isEmpty()) {
+                    listNotes = source;
+                } else {
+                    ArrayList<NoteEntity> tempContainer = new ArrayList<>();
+                    for (NoteEntity noteEntity : source) {
+                        if (noteEntity.getTitle().toLowerCase().contains(token.toLowerCase())
+                                || noteEntity.getSubtitle().toLowerCase().contains(token.toLowerCase())
+                                || noteEntity.getContent().toLowerCase().contains(token.toLowerCase())) {
+                            tempContainer.add(noteEntity);
+                        }
+                    }
+                    listNotes = tempContainer;
+                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        }, 1000);
+    }
+
+    public void cancelTimer() {
+        if (searchTimer != null) {
+            searchTimer.cancel();
         }
     }
 

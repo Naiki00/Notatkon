@@ -143,20 +143,19 @@ public class CreateNote extends AppCompatActivity {
         final BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomToolbar);
 
         //wysuwanie dolnego paska narzędzi
-        bottomToolbar.findViewById(R.id.textBottomToolbar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        });
-
-
         if (selectedNote != null) {
+            bottomToolbar.findViewById(R.id.textBottomToolbar).setVisibility(View.VISIBLE);
             bottomToolbar.findViewById(R.id.deleteNote).setVisibility(View.VISIBLE);
+            bottomToolbar.findViewById(R.id.textBottomToolbar).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    } else {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    }
+                }
+            });
             bottomToolbar.findViewById(R.id.deleteNote).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +165,6 @@ public class CreateNote extends AppCompatActivity {
             });
         }
     }
-
 
     /*
     https://developer.android.com/guide/topics/ui/dialogs#CustomLayout
